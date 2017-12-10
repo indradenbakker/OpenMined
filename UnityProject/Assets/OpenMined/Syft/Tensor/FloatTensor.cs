@@ -639,6 +639,11 @@ namespace OpenMined.Syft.Tensor
                         return msgObj.functionCall + ": FAILED : Did not move data.";
                     }
                 }
+                case "log1p":
+                {
+                    var result = Log1p();
+                    return result.Id.ToString();
+                }
                 case "mul_elem":
                 {
                     var tensor_1 = ctrl.getTensor(int.Parse(msgObj.tensorIndexParams[0]));
