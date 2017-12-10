@@ -963,8 +963,6 @@ namespace OpenMined.Tests
 			}
 		}
 
-		-0.4183, 0.3722, -0.3091, 0.4149, 0.5857
-
 		[Test]
 		public void Max()
 		{
