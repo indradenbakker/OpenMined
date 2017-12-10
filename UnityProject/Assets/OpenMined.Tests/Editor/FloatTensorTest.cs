@@ -944,6 +944,26 @@ namespace OpenMined.Tests
 		}
 
 		[Test]
+		public void Log1p()
+		{
+			float[] data1 = { -0.4183f, 0.3722f, -0.3091f, 0.4149f, 0.5857f };
+			int[] shape1 = { 5 };
+			var tensor1 = new FloatTensor(_ctrl:ctrl, _data:data1, _shape:shape1);
+		
+			float[] data2 = { -0.54180f,  0.31641f, -0.36976f,  0.34705f,  0.46102f };
+			int[] shape2 = { 5 };
+			var tensorLog1p = new FloatTensor(_ctrl:ctrl, _data:data2, _shape:shape2);
+		
+			var result = tensor1.Log1p();
+		
+			for (int i = 0; i < tensor1.Size; i++)
+			{
+				var rounded = Decimal.Round((Decimal)result.Data[i], 5);
+				Assert.AreEqual(tensorLog1p.Data[i], rounded);
+			}
+		}
+
+		[Test]
 		public void Max()
 		{
 			float[] data = new float[] {
