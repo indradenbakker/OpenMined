@@ -731,6 +731,11 @@ namespace OpenMined.Syft.Tensor
                     var result = Neg();
                     return result.Id.ToString();
                 }
+                case "neg_":
+                {
+                    Neg(inline: true);
+                    return Id.ToString();
+                }
                 case "rsqrt":
                 {
                     var result = Rsqrt();

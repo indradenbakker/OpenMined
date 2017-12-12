@@ -1,7 +1,7 @@
 OpenMined Unity Application
 =============================================
 
-[![Build Status](https://travis-ci.org/OpenMined/OpenMined.svg?branch=master)](https://travis-ci.org/OpenMined/OpenMined) 
+[![Build Status](https://travis-ci.org/OpenMined/OpenMined.svg?branch=master)](https://travis-ci.org/OpenMined/OpenMined)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
@@ -43,7 +43,7 @@ More about this in the [corresponding file](https://github.com/OpenMined/OpenMin
     - Windows & Mac users: Download it from [here](https://store.unity.com/).
     - Linux users: Download it from [here](http://beta.unity3d.com/download/ee86734cf592/public_download.html)
 
-Note: If you do not already have one, you will have to create a Unity account when you open the Application for the first time. For new users, a Personal account should be ok. 
+Note: If you do not already have one, you will have to create a Unity account when you open the Application for the first time. For new users, a Personal account should be ok.
 
 2. Open project in Unity `[File -> Open Project -> Directory/To/OpenMined`]
 
@@ -75,6 +75,7 @@ The steps come in two parts:
 Same steps as above. Download Unity from [here](https://store.unity.com/). I chose the personal version. This will provide you a .dmg installer, which will download and install the necessary components (~800mb).
 
 **If on OSX turn on Metal Support**  
+*NOTE: Unity does not provide metal support for MacOS 10.12.2 and 10.12.3. Please upgrade your OS before using Unity.*
 
 - Within Unity editor select: `Edit -> Project Settings -> Player`
     - In the Inspector, scroll down until you find `Metal Editor Support` under `Other Settings` and click the checkbox to turn it on. (skip this if not on Mac OSX)

@@ -622,23 +622,24 @@ namespace OpenMined.Syft.Tensor
 		}
 
 
-		public FloatTensor Neg ()
-		{
-			if (dataOnGpu) {
-				return NegateGPU ();
-			} else {
+        public FloatTensor Neg (bool inline = false)
+        {
+            var result = inline ? this : this.emptyTensorCopy();
 
-				var result = this.Copy ();
-				var nCpu = SystemInfo.processorCount;
-				Parallel.For (0, nCpu, workerId => {
-					var max = data.Length * (workerId + 1) / nCpu;
-					for (var i = data.Length * workerId / nCpu; i < max; i++)
-						result.data [i] = -data [i];
-				});
-				return result;
-			}
+            if (dataOnGpu) {
+                result.Gpu (shader);
+                if (inline) { NegateGPU_ (); return this; }
+                else { return NegateGPU (); }
+        	}
 
-		}
+        	var nCpu = SystemInfo.processorCount;
+        	Parallel.For (0, nCpu, workerId => {
+        		var max = data.Length * (workerId + 1) / nCpu;
+        		for (var i = data.Length * workerId / nCpu; i < max; i++)
+        			result.data [i] = -data [i];
+        	});
+        	return result;
+        }
 
 		public FloatTensor Rsqrt ()
 		{

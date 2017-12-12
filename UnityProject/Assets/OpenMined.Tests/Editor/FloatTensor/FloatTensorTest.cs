@@ -1311,7 +1311,26 @@ namespace OpenMined.Tests.Editor.FloatTensor
 			}
 		}
 
-		[Test]
+        [Test]
+        public void Neg_()
+        {
+            float[] data1 = { -1, 0, 1, float.MaxValue, float.MinValue };
+            int[] shape1 = { 5 };
+            var tensor1 = new Syft.Tensor.FloatTensor(_ctrl: ctrl, _data: data1, _shape: shape1);
+
+            float[] data2 = { 1, 0, -1, (-1*float.MaxValue), (-1*float.MinValue) };
+            int[] shape2 = { 5 };
+            var expectedTensor = new Syft.Tensor.FloatTensor(_ctrl: ctrl, _data: data2, _shape: shape2);
+
+            tensor1.Neg (inline: true);
+
+            for (int i = 0; i < tensor1.Size; i++)
+            {
+                Assert.AreEqual (expectedTensor.Data[i], tensor1.Data[i]);
+            }
+        }
+
+        [Test]
 		public void Prod()
 		{
 			float[] data = new float[] {
