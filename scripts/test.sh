@@ -5,7 +5,7 @@ PROJECT_FOLDER="$(pwd)/UnityProject"
 RESULTS_FILENAME="results.xml"
 RESULTS_FILEPATH="$(pwd)"/$RESULTS_FILENAME
 EDITOR_LOG_FILEPATH=" $(echo ~/Library/Logs/Unity/Editor.log)"
-GPU_TESTS_FILEPATH=$PROJECT_FOLDER/Assets/OpenMined.Tests/Editor/FloatTensorGpuTest.cs
+GPU_TESTS_FILEPATH=$PROJECT_FOLDER/Assets/OpenMined.Tests/Editor/FloatTensor/FloatTensorGpuTest.cs
 
 echo $PROJECT_FOLDER
 

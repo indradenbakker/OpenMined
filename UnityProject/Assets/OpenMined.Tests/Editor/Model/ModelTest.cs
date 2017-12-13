@@ -13,9 +13,6 @@ using UnityEngine;
 
 namespace OpenMined.Tests.Editor.Model
 {
-    
-   
-    
     [Category("ModelCPUTests")]
     public class ModelTest
     {
@@ -64,7 +61,7 @@ namespace OpenMined.Tests.Editor.Model
                 currentLoss = loss.Data.Sum(); 
             }
             
-            Assert.AreEqual (Math.Round(currentLoss, 5), 0.20936);
+            Assert.True(Math.Round(currentLoss, 5) <= 0.20936);
         }   
     }
 }
