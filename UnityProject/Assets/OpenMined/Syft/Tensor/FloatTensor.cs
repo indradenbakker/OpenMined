@@ -885,6 +885,16 @@ namespace OpenMined.Syft.Tensor
 
                     return Mean(dim: dim, keepdim: keepdim).Id.ToString();
                 }
+                case "stride": 
+                {
+                    if (msgObj.tensorIndexParams.Length > 0) {
+                        var dim = int.Parse(msgObj.tensorIndexParams[0]);
+                        return Strides[dim].ToString();
+                    } else {
+                        return string.Join(" ", Strides);
+                    }
+                    
+                }
                 default:
                     break;
             }
