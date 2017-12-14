@@ -593,7 +593,7 @@ namespace OpenMined.Syft.Tensor
             var result = new FloatTensor(_controller: controller, _data: data, _shape: ndims);
             return result;
         }
-        
+
         public FloatTensor Sqrt()
         {
             if (dataOnGpu)
