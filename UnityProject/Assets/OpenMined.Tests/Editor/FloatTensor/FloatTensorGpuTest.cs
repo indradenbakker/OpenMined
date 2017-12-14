@@ -1142,6 +1142,24 @@ namespace OpenMined.Tests
         }
 
         [Test]
+        public void Round_()
+        {
+            float[] data1 = {5.89221f, -20.11f, 9.0f, 100.4999f, 100.5001f};
+            int[] shape1 = {5};
+            var tensor1 = new FloatTensor(_controller: ctrl, _data: data1, _shape: shape1);
+            tensor1.Gpu(shader);
+
+            float[] data2 = {6, -20, 9, 100, 101};
+            int[] shape2 = {5};
+            var expectedRoundTensor = new FloatTensor(_controller: ctrl, _data: data2, _shape: shape2);
+            expectedRoundTensor.Gpu(shader);
+
+            tensor1.Round(inline: true);
+
+            AssertEqualTensorsData(expectedRoundTensor, tensor1);
+        }
+
+        [Test]
         public void RemainderElem()
         {
             float[] data = {-10, -5, -3.5f, 4.5f, 10, 20};
