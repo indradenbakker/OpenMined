@@ -355,13 +355,15 @@ namespace OpenMined.Syft.Tensor
             return strides[strides.Length - 1] == 1L;
         }
 
-        public FloatTensor Log1p()
-        {
-            var result = new FloatTensor(_controller: controller, _shape: shape, _shader: this.shader);
+        public FloatTensor Log1p(bool inline = false)
+        {	
+        	var result = inline ? this : this.emptyTensorCopy();
 
             if (dataOnGpu)
             {
-            	return Log1pGPU();
+            	if (!inline) return Log1pGPU();
+            	Log1pGPU_();
+            	return this;
             }
             result.Data = data.AsParallel().Select(x => (float) (Math.Log(1 + x))).ToArray();
             return result;

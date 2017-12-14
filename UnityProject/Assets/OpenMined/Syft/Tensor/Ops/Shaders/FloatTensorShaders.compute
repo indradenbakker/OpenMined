@@ -351,6 +351,15 @@ void Log1p (uint3 id: SV_DispatchThreadID) {
 	Log1pResult[id.x] = log(1 + Log1pData[id.x]);
 }
 
+#pragma kernel Log1p_
+
+RWStructuredBuffer<float> Log1pData_;
+
+[numthreads(4,1,1)]
+void Log1p_ (uint3 id: SV_DispatchThreadID) {
+	Log1pData_[id.x] = log(1 + Log1pData_[id.x]);
+}
+
 #pragma kernel MulScalar_
 
 RWStructuredBuffer<float> MulScalarData_;

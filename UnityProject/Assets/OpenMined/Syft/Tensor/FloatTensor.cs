@@ -501,6 +501,11 @@ namespace OpenMined.Syft.Tensor
                     var result = Log1p();
                     return result.Id.ToString();
                 }
+                case "log1p_":
+                {
+                    Log1p(inline: true);
+                    return Id.ToString();
+                }
                 case "mul_elem":
                 {
                     var tensor_1 = ctrl.getTensor(int.Parse(msgObj.tensorIndexParams[0]));
