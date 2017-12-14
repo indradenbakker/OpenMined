@@ -484,13 +484,22 @@ def test_trace():
 
 def test_round():
     data = np.array([12.7292, -3.11, 9.00, 20.4999, 20.5001])
-    expected = np.array(13, -3, 9, 20, 21)
+    expected = np.array([13, -3, 9, 20, 21])
     a = pytest.sc.FloatTensor(data)
     b = a.round()
 
     np.testing.assert_array_equal(expected, b.to_numpy())
     # a doesn't change
     np.testing.assert_array_equal(data, a.to_numpy())
+
+def test_round_():
+    data = np.array([12.7292, -3.11, 9.00, 20.4999, 20.5001])
+    expected = np.array([13, -3, 9, 20, 21])
+    a = pytest.sc.FloatTensor(data)
+    a.round_()
+
+    # a does change when inlined
+    np.testing.assert_array_equal(expected, a.to_numpy())
 
 def test_log1p():
     data = np.array([1.2, -0.9, 9.9, 0.1, -0.455])

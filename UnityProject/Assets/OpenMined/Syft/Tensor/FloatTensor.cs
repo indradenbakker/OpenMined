@@ -563,6 +563,11 @@ namespace OpenMined.Syft.Tensor
                     var result = Round();
                     return result.Id.ToString();
                 }
+                case "round_":
+                {
+                    Round(inline: true);
+                    return Id.ToString();
+                }
                 case "set":
                 {
                     var param_to_set = msgObj.tensorIndexParams[0];

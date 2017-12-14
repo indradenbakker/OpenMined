@@ -336,13 +336,15 @@ namespace OpenMined.Syft.Tensor
             return result;
         }
 
-        public FloatTensor Round()
+        public FloatTensor Round(bool inline = false)
         {
-            var result = new FloatTensor(_controller: controller, _shape: shape, _shader: this.shader);
+            var result = inline ? this : this.emptyTensorCopy();
 
             if (dataOnGpu)
             {
-                return RoundGPU();
+            	if (!inline) return RoundGPU();
+                RoundGPU_();
+                return this;
             }
             result.Data = data.AsParallel().Select(x => (float) Math.Round(x)).ToArray();
             return result;
