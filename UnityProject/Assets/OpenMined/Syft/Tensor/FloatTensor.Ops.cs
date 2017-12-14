@@ -359,8 +359,7 @@ namespace OpenMined.Syft.Tensor
 
             if (dataOnGpu)
             {
-                // TODO: Create GPU implementation
-                throw new NotImplementedException();
+            	return Log1pGPU();
             }
             result.Data = data.AsParallel().Select(x => (float) (Math.Log(1 + x))).ToArray();
             return result;

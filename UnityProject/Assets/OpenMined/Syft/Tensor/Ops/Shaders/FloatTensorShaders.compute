@@ -332,6 +332,16 @@ void Round (uint3 id: SV_DispatchThreadID) {
 	RoundResult[id.x] = round(RoundData[id.x]);
 }
 
+#pragma kernel Log1p
+
+RWStructuredBuffer<float> Log1pData;
+RWStructuredBuffer<float> Log1pResult;
+
+[numthreads(4,1,1)]
+void Log1p (uint3 id: SV_DispatchThreadID) {
+	Log1pResult[id.x] = log(1 + Log1pData[id.x]);
+}
+
 #pragma kernel MulScalar_
 
 RWStructuredBuffer<float> MulScalarData_;

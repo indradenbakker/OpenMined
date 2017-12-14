@@ -760,7 +760,7 @@ namespace OpenMined.Tests
                 Assert.AreEqual(expectedTensor[i], tensor1[i]);
             }
         }
-
+      
         [Test]
         public void Exp()
         {
@@ -830,6 +830,24 @@ namespace OpenMined.Tests
             tensor1.Floor(inline: true);
 
             AssertEqualTensorsData(expectedTensor, tensor1);
+        }
+      
+        [Test]
+        public void Log1p()
+        {
+          float[] data1 = { -0.4183f, 0.3722f, -0.3091f, 0.4149f, 0.5857f };
+          int[] shape1 = { 5 };
+          var tensor1 = new FloatTensor(_controller: ctrl, _data: data1, _shape: shape1);
+          tensor1.Gpu(shader);
+
+          float[] data2 = { -0.54180f,  0.31642f, -0.36976f,  0.34706f,  0.46103f };
+          int[] shape2 = { 5 };
+          var tensorLog1p = new FloatTensor(_controller: ctrl, _data: data2, _shape: shape2);
+          tensorLog1p.Gpu(shader);
+
+          var result = tensor1.Log1p();
+
+          AssertApproximatelyEqualTensorsData(tensorLog1p, result);
         }
 
         [Test]
