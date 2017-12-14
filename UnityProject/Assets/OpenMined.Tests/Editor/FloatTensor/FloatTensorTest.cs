@@ -972,6 +972,24 @@ namespace OpenMined.Tests.Editor.FloatTensor
         }
 
         [Test]
+        public void Log1p_()
+        {
+            float[] data1 = {-0.4183f, 0.3722f, -0.3091f, 0.4149f, 0.5857f};
+            int[] shape1 = {5};
+            var tensor1 = new Syft.Tensor.FloatTensor(_controller: ctrl, _data: data1, _shape: shape1);
+            float[] data2 = {-0.54180f, 0.31642f, -0.36976f, 0.34706f, 0.46103f};
+            int[] shape2 = {5};
+            var tensorLog1p = new Syft.Tensor.FloatTensor(_controller: ctrl, _data: data2, _shape: shape2);
+
+            tensor1.Log1p(inline: true);
+
+            for (int i = 0; i < tensor1.Size; i++)
+            {
+                Assert.AreEqual(tensorLog1p[i], tensor1[i], 1e-5);
+            }
+        }
+
+        [Test]
         public void Max()
         {
             float[] data = new float[]
