@@ -34,6 +34,7 @@ namespace OpenMined.Syft.Tensor
         [SerializeField] private static int FloorKernel_;
         [SerializeField] private static int FloorKernel;
         [SerializeField] private static int RoundKernel;
+        [SerializeField] private static int RoundKernel_;
         [SerializeField] private static int Log1pKernel;
         [SerializeField] private static int MulScalarKernel_;
         [SerializeField] private static int MulElemKernel_;
@@ -108,6 +109,7 @@ namespace OpenMined.Syft.Tensor
             FloorKernel_ = shader.FindKernel("Floor_");
             FloorKernel = shader.FindKernel("Floor");
             RoundKernel = shader.FindKernel("Round");
+            RoundKernel_ = shader.FindKernel("Round_");
             Log1pKernel = shader.FindKernel ("Log1p");
             RemainderElemKernel_ = shader.FindKernel("RemainderElem_");
             RemainderElemKernel = shader.FindKernel("RemainderElem");
@@ -489,6 +491,14 @@ namespace OpenMined.Syft.Tensor
             shader.Dispatch(RoundKernel, this.Size, 1, 1);
 
             return result;
+        }
+
+        public void RoundGPU_()
+        {
+            Debug.LogFormat("<color=blue>FloatTensor.round_ dataOnGpu: {0}</color>", dataOnGpu);
+
+            shader.SetBuffer(RoundKernel_, "RoundData_", dataBuffer);
+            shader.Dispatch(RoundKernel_, this.Size, 1, 1);
         }
 
         public FloatTensor Log1pGPU()
