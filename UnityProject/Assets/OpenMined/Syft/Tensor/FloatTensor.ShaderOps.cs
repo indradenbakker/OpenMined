@@ -36,6 +36,7 @@ namespace OpenMined.Syft.Tensor
         [SerializeField] private static int RoundKernel;
         [SerializeField] private static int RoundKernel_;
         [SerializeField] private static int Log1pKernel;
+        [SerializeField] private static int Log1pKernel_;
         [SerializeField] private static int MulScalarKernel_;
         [SerializeField] private static int MulElemKernel_;
         [SerializeField] private static int MulScalarKernel;
@@ -111,11 +112,11 @@ namespace OpenMined.Syft.Tensor
             RoundKernel = shader.FindKernel("Round");
             RoundKernel_ = shader.FindKernel("Round_");
             Log1pKernel = shader.FindKernel ("Log1p");
+            Log1pKernel_ = shader.FindKernel ("Log1p_");
             RemainderElemKernel_ = shader.FindKernel("RemainderElem_");
             RemainderElemKernel = shader.FindKernel("RemainderElem");
             RemainderScalarKernel_ = shader.FindKernel("RemainderScalar_");
             RemainderScalarKernel = shader.FindKernel("RemainderScalar");
-//				Log1pKernel = shader.FindKernel ("Log1p");
             MulScalarKernel_ = shader.FindKernel("MulScalar_");
             MulElemKernel_ = shader.FindKernel("MulElem_");
             MulScalarKernel = shader.FindKernel("MulScalar");
@@ -503,6 +504,7 @@ namespace OpenMined.Syft.Tensor
 
         public FloatTensor Log1pGPU()
         {
+            Debug.LogFormat("<color=blue>FloatTensor.log1p dataOnGpu: {0}</color>", dataOnGpu);
             if (!dataOnGpu) return this;
 
             var result = this.emptyTensorCopy();
@@ -511,6 +513,14 @@ namespace OpenMined.Syft.Tensor
             shader.Dispatch(Log1pKernel, this.Size, 1, 1);
 
             return result;
+        }
+
+        public void Log1pGPU_()
+        {
+            Debug.LogFormat("<color=blue>FloatTensor.log1p_ dataOnGpu: {0}</color>", dataOnGpu);
+
+            shader.SetBuffer(Log1pKernel_, "Log1pData_", dataBuffer);
+            shader.Dispatch(Log1pKernel_, this.Size, 1, 1);
         }
 
         public void MulScalarGPU_(float value)
