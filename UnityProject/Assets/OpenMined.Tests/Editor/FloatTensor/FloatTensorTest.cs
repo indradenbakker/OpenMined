@@ -1732,7 +1732,7 @@ namespace OpenMined.Tests.Editor.FloatTensor
                 Assert.AreEqual(expectedSinhTensor[i], tensor1[i], 1e-5);
             }
         }
-
+/* TODO: not sure why this exists... what was SizeTensor?
         [Test]
         public void SizeTensor()
         {
@@ -1749,7 +1749,7 @@ namespace OpenMined.Tests.Editor.FloatTensor
             {
                 Assert.AreEqual(actualSizeTensor[i], expectedSizeTensor[i]);
             }
-        }
+        }*/
 
         [Test]
         public void Squeeze()
@@ -2377,6 +2377,7 @@ namespace OpenMined.Tests.Editor.FloatTensor
                 Assert.AreEqual(expectedTensor[i], tensor1[i]);
             }
         }
+
 
 /* closes class and namespace */
     }
