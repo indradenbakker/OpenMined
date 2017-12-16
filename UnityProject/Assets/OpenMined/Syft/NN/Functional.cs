@@ -6,7 +6,8 @@ namespace OpenMined.Syft.NN
 {
     public static class Functional
     {
-        public static FloatTensor Softmax(FloatTensor input, int dim = -1)
+        // commenting out because this funciton shouldn't use for loops - it should use tensor operations
+        /*public static FloatTensor Softmax(FloatTensor input, int dim = -1)
         {
             
             // TODO -- GPU Support
@@ -27,6 +28,6 @@ namespace OpenMined.Syft.NN
             });
 			
             return copy;
-        }
+//        }*/
     }
 }
