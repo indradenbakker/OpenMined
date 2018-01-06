@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenMined.Network.Controllers;
 using UnityEngine;
+using OpenMined.Network.Utils;
 
 namespace OpenMined.Syft.Tensor
 {
@@ -25,16 +26,14 @@ namespace OpenMined.Syft.Tensor
 
         protected ComputeShader shader;
 
-        protected SyftController controller;
-
         #endregion
 
         #region Properties
 
-        public SyftController Controller
+        public ComputeShader Shader
         {
-            get { return controller; }
-            set { controller = value; }
+            get { return shader; }
+            set { shader = value; }
         }
 
         public T[] Data
@@ -164,5 +163,95 @@ namespace OpenMined.Syft.Tensor
         }
 
         #endregion
+        public void Zero_()
+        {
+            if (dataOnGpu)
+            {
+                ZeroGPU_();
+                return;
+            }
+
+            Array.Clear(data, 0, size);
+        }
+
+        public void ZeroGPU_()
+        {
+            shader.SetBuffer(ZeroKernel_, "ZeroData_", dataBuffer);
+            shader.Dispatch(ZeroKernel_, this.size, 1, 1);
+        }
+
+        public bool IsContiguous()
+        {
+            long z = 1;
+            int d;
+            for(d = shape.Length-1; d >= 0; d--)
+            {
+                if(shape[d] != 1)
+                {
+                    if (strides[d] == z) {
+                        z *= shape[d];
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public int DimIndices2DataIndex(ref int[] dim_indices)
+        {
+            int index = 0;
+            for (int i = 0; i < dim_indices.Length; i++)
+            {
+                index += dim_indices[i] * strides[i];
+            }
+            return index;
+        }
+
+        public int[] DataIndex2DimIndices(int index, ref int[] dim_indices)
+        {
+            if (dim_indices == null)
+            {
+                dim_indices = new int[strides.Length];
+            }
+
+            for (int i = 0; i < strides.Length; i++)
+            {
+                if (strides[i] != 0)
+                {
+                    dim_indices[i] = index / strides[i];
+                    index %= strides[i];
+                }
+                else
+                {
+                    dim_indices[i] = 0;
+                }
+            }
+
+            return dim_indices;
+        }
+        
+        public abstract string ProcessMessage(Command msgObj, SyftController ctrl);
+
+        public void setStridesAndCheckShape()
+        {
+            // Third: let's initialize our strides.
+            strides = new int[shape.Length];
+
+            // Fifth: we should check that the buffer's size matches our shape.
+            int acc = 1;
+            for (var i = shape.Length - 1; i >= 0; --i)
+            {
+                strides[i] = acc;
+                acc *= shape[i];
+            }
+
+            // Sixth: let's check to see that our shape and data sizes match.
+            size = acc;
+        }
+
+
+
+
     }
 }

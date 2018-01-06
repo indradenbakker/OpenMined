@@ -3,6 +3,7 @@ OpenMined Unity Application
 
 [![Build Status](https://travis-ci.org/OpenMined/OpenMined.svg?branch=master)](https://travis-ci.org/OpenMined/OpenMined)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Help Contribute to Open Source](https://www.codetriage.com/openmined/openmined/badges/users.svg)](https://www.codetriage.com/openmined/openmined)
 
 
 Table of Contents:   
